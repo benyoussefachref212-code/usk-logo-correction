@@ -28,7 +28,10 @@ export function publicAssetUrl(path: string | null) {
   if (path === "/usk-official-logo.png" || path === "usk-official-logo.png") {
     return "/usk-official-logo.png";
   }
-  const normalizedPath = path.replace(/^\/+/, "");
-  return supabase?.storage.from("usk-assets").getPublicUrl(normalizedPath).data.publicUrl || null;
+  const normalizedPath = path
+    .replace(/^\/+/, "")
+    .replace(/^usk-assets\//, "");
+  const publicUrl = supabase?.storage.from("usk-assets").getPublicUrl(normalizedPath).data.publicUrl;
+  return publicUrl || null;
 }
 

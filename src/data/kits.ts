@@ -102,7 +102,14 @@ async function loadRemoteKits() {
     .from("usk_official_kits")
     .select("slot,label,title,description,image_path,status,updated_at,generated_at,validated_at")
     .order("slot");
-  if (!error && data)
+  if (error) {
+    console.error("[v0] Official kits could not load from Supabase", {
+      table: "public.usk_official_kits",
+      error,
+    });
+    return;
+  }
+  if (data)
     remoteKits = defaults.map((fallback) =>
       normalizeKit(
         {
