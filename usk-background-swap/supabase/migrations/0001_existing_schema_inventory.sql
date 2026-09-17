@@ -1,0 +1,12 @@
+-- Portability inventory for the existing Supabase project.
+--
+-- Verified application dependencies in the existing Supabase project:
+--   Tables: public.usk_teams, public.usk_matches,
+--           public.usk_official_kits
+--   Storage bucket: usk-assets
+--   Storage path prefixes: teams/ and kits/
+--
+-- The executable, schema-only recreation is in 0002_verified_schema.sql.
+-- Do not run that migration against the existing production project; it is for
+-- recreating an equivalent empty Supabase project before importing data/assets.
+-- Current production data and storage objects remain in the source project.
