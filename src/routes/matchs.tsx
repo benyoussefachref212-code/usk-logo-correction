@@ -6,6 +6,7 @@ import { getTeamById, useTeams } from "../data/teams";
 import { useLiveState, type LiveState } from "../data/live";
 import { PublicShell } from "../components/PublicShell";
 import { UskLogo } from "../components/UskLogo";
+import { TeamLogo } from "../components/TeamLogo";
 import "../usk.css";
 
 const formatTime = (totalSeconds: number) =>
@@ -27,10 +28,11 @@ function AwayCrest({ match }: { match: Match }) {
   const teams = useTeams();
   const team = getTeamById(teams, match.opponentTeamId);
   return match.opponentLogo ? (
-    <img
+    <TeamLogo
       className="crest crest-small"
       src={match.opponentLogo}
-      alt={team?.name || match.opponent}
+      name={team?.name || match.opponent}
+      abbreviation={team?.abbreviation || match.opponentShort}
     />
   ) : (
     <div

@@ -35,6 +35,7 @@ import { getTeamById, getVirtualKit, useTeams, type Team } from "../data/teams";
 import { useKits } from "../data/kits";
 import { PublicShell } from "../components/PublicShell";
 import "../usk.css";
+import { TeamLogo } from "../components/TeamLogo";
 
 export const Route = createFileRoute("/admin/live-match")({
   component: AdminLiveMatchPage,
@@ -453,7 +454,7 @@ function LiveTeamAsset({
   return (
     <div className="admin-live-team-asset" aria-label={`Logo et tenue de ${team?.name || fallback}`}>
       <div className="admin-live-team-logo">
-        {logo ? <img src={logo} alt={`Logo ${team?.name || fallback}`} /> : <b>{fallback}</b>}
+        {logo ? <TeamLogo src={logo} name={team?.name || fallback} abbreviation={fallback} alt={`Logo ${team?.name || fallback}`} /> : <b>{fallback}</b>}
       </div>
       {kitImage ? (
         <img className="admin-live-team-kit-image" src={kitImage} alt={`Tenue ${team?.name || fallback}`} />
@@ -469,7 +470,7 @@ function LiveTeamAsset({
             } as React.CSSProperties
           }
         >
-          {logo ? <img src={logo} alt="" /> : <b>{fallback}</b>}
+          {logo ? <TeamLogo src={logo} name={fallback} abbreviation={fallback} alt="" /> : <b>{fallback}</b>}
         </div>
       ) : (
         <Shirt className="admin-live-team-kit-fallback" aria-hidden="true" />

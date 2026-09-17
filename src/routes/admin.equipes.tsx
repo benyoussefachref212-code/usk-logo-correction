@@ -15,6 +15,7 @@ import {
 import { useMemo, useState } from "react";
 import { uploadAsset } from "../lib/asset-upload";
 import "../usk.css";
+import { TeamLogo } from "../components/TeamLogo";
 import {
   generateVirtualKit,
   getVirtualKit,
@@ -213,7 +214,7 @@ function AdminTeamsPage() {
               <div className="admin-team-card-top">
                 <span className="admin-team-badge" style={teamBadge(team)}>
                   {logo ? (
-                    <img src={logo} alt={`Logo ${team.abbreviation}`} />
+                    <TeamLogo src={logo} name={team.name} abbreviation={team.abbreviation} alt={`Logo ${team.abbreviation}`} />
                   ) : (
                     <>
                       <Shield size={22} />
@@ -253,7 +254,7 @@ function AdminTeamsPage() {
                       } as React.CSSProperties
                     }
                   >
-                    {logo ? <img src={logo} alt="" /> : <b>{team.abbreviation}</b>}
+                    {logo ? <TeamLogo src={logo} name={team.name} abbreviation={team.abbreviation} alt="" /> : <b>{team.abbreviation}</b>}
                   </div>
                   <span className={kit.status === "ready" ? "kit-status ready" : "kit-status"}>
                     {kit.status === "ready" ? "Tenue générée" : "Tenue à générer"}
@@ -300,7 +301,7 @@ function AdminTeamsPage() {
                 />
                 <span className="admin-logo-link-preview">
                   {logo ? (
-                    <img src={logo} alt={`Logo actuel de ${team.abbreviation}`} />
+                    <TeamLogo src={logo} name={team.name} abbreviation={team.abbreviation} alt={`Logo actuel de ${team.abbreviation}`} />
                   ) : (
                     <ImagePlus size={17} />
                   )}
@@ -335,7 +336,7 @@ function AdminTeamsPage() {
             <div className="kit-detail">
               <div className="kit-detail-logo">
                 {teamLogo(viewing) ? (
-                  <img src={teamLogo(viewing) as string} alt={`Logo ${viewing.abbreviation}`} />
+                  <TeamLogo src={teamLogo(viewing)} name={viewing.name} abbreviation={viewing.abbreviation} alt={`Logo ${viewing.abbreviation}`} />
                 ) : (
                   <b>{viewing.abbreviation}</b>
                 )}
@@ -352,7 +353,7 @@ function AdminTeamsPage() {
                 }
               >
                 {teamLogo(viewing) ? (
-                  <img src={teamLogo(viewing) as string} alt="" />
+                  <TeamLogo src={teamLogo(viewing)} name={viewing.name} abbreviation={viewing.abbreviation} alt="" />
                 ) : (
                   <b>{viewing.abbreviation}</b>
                 )}
@@ -430,7 +431,7 @@ function AdminTeamsPage() {
                     });
                   }}
                 />
-                {form.logo && <img src={form.logo} alt="Logo actuel" />}
+                {form.logo && <TeamLogo src={form.logo} name={form.name || "Équipe"} abbreviation={form.abbreviation} alt="Logo actuel" />}
                 {pendingLogoFile && <small>Logo sélectionné : {pendingLogoFile.name}</small>}
               </label>
               <label>

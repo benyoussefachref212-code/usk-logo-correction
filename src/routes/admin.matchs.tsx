@@ -42,6 +42,7 @@ import {
 } from "../data/matches";
 import { getTeamById, getTeamStadium, useTeams, type Team } from "../data/teams";
 import "../usk.css";
+import { TeamLogo as ResilientTeamLogo } from "../components/TeamLogo";
 
 export const Route = createFileRoute("/admin/matchs")({
   component: AdminMatchsPage,
@@ -560,7 +561,7 @@ function AdminMatchsPage() {
 
 function TeamLogo({ team, fallback }: { team?: Team; fallback: string }) {
   return team?.logo ? (
-    <img className="reference-match-logo" src={team.logo} alt={`Logo ${team.name}`} />
+    <ResilientTeamLogo className="reference-match-logo" src={team.logo} name={team.name} abbreviation={team.abbreviation} alt={`Logo ${team.name}`} />
   ) : (
     <span className="reference-match-logo-fallback">{fallback}</span>
   );

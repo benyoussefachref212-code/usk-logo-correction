@@ -14,6 +14,7 @@ import {
 } from "../data/standings";
 import { useMatches } from "../data/matches";
 import "../usk.css";
+import { TeamLogo } from "../components/TeamLogo";
 
 const emptyTeam: Omit<StandingTeam, "id"> = {
   team: "",
@@ -64,7 +65,7 @@ function TeamStandingsVisual({
   return (
     <div className="reference-club-visual" aria-hidden="true">
       <div className="reference-club-crest">
-        {logo ? <img src={logo} alt="" /> : <b>{team.abbreviation}</b>}
+        {logo ? <TeamLogo src={logo} name={team.name} abbreviation={team.abbreviation} alt="" /> : <b>{team.abbreviation}</b>}
       </div>
       {kitImage ? (
         <img className="reference-club-kit-image" src={kitImage} alt="" />
@@ -80,7 +81,7 @@ function TeamStandingsVisual({
             } as React.CSSProperties
           }
         >
-          {logo ? <img src={logo} alt="" /> : <b>{team.abbreviation}</b>}
+          {logo ? <TeamLogo src={logo} name={team.name} abbreviation={team.abbreviation} alt="" /> : <b>{team.abbreviation}</b>}
         </div>
       )}
     </div>

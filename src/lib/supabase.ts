@@ -29,6 +29,14 @@ export function publicAssetUrl(path: string | null) {
     return "/usk-official-logo.png";
   }
   const normalizedPath = path.replace(/^\/+/, "");
+  if (
+    path.startsWith("/") ||
+    path.startsWith("./") ||
+    path.startsWith("../") ||
+    /\.(svg|png|jpe?g|webp|gif)$/i.test(path)
+  ) {
+    return `/${normalizedPath}`;
+  }
   return supabase?.storage.from("usk-assets").getPublicUrl(normalizedPath).data.publicUrl || null;
 }
 
