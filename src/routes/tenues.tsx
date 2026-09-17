@@ -4,7 +4,9 @@ import { PublicShell } from "../components/PublicShell";
 import { useKits } from "../data/kits";
 
 function TenuesPage() {
-  const kits = useKits().filter((kit) => kit.image);
+  const kits = useKits();
+  const placeholderKitImage =
+    "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=80";
   return (
     <PublicShell
       kicker="IDENTITÉ DU CLUB"
@@ -25,7 +27,7 @@ function TenuesPage() {
                   <Sparkles size={13} /> {kit.label}
                 </span>
                 <img
-                  src={kit.image!}
+                  src={kit.image || placeholderKitImage}
                   alt={`${kit.title} officiel de l’Union Sportive de Kelibia`}
                 />
               </div>

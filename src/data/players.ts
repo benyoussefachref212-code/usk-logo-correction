@@ -1,7 +1,7 @@
-import keeperImg from "../assets/player-keeper.jpg";
-import defenderImg from "../assets/player-defender.jpg";
-import midfielderImg from "../assets/player-midfielder.jpg";
-import strikerImg from "../assets/player-striker.jpg";
+const keeperImg = "/images/player-keeper.jpg";
+const defenderImg = "/images/player-defender.jpg";
+const midfielderImg = "/images/player-midfielder.jpg";
+const strikerImg = "/images/player-striker.jpg";
 
 export type Player = {
   id: string;
