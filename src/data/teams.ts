@@ -214,7 +214,13 @@ function fromRow(row: Record<string, unknown>): Team {
     id,
     abbreviation: String(row["abbreviation"] || catalogTeam?.abbreviation || id),
     name: String(row["name"] || catalogTeam?.name || id),
-    logo: publicAssetUrl(typeof row["logo_path"] === "string" ? row["logo_path"] : null),
+    logo: publicAssetUrl(
+      typeof row["logo_path"] === "string"
+        ? row["logo_path"]
+        : row["virtual_kit"] && typeof row["virtual_kit"] === "object" && "logo" in row["virtual_kit"] && typeof (row["virtual_kit"] as { logo?: unknown }).logo === "string"
+          ? (row["virtual_kit"] as { logo: string }).logo
+          : null,
+    ),
     colors: String(row["colors"] || catalogTeam?.colors || "#b51f32"),
     accent: String(row["accent"] || catalogTeam?.accent || "#10233f"),
     stadium: String(row["stadium"] || catalogTeam?.stadium || "Stade municipal"),
