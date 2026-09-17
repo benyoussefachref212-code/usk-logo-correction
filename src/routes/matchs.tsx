@@ -20,18 +20,17 @@ export const Route = createFileRoute("/matchs")({
   component: MatchsPage,
   head: () => ({ meta: [{ title: "Matchs — USK Union Sportive de Kelibia" }] }),
 });
-function UskCrest() {
-  return <UskLogo />;
+function UskCrest({ team }: { team?: ReturnType<typeof useTeams>[number] }) {
+  return team?.logo ? (
+    <img className="crest crest-small" src={team.logo} alt={`Logo ${team.name}`} />
+  ) : (
+    <UskLogo />
+  );
 }
-function AwayCrest({ match }: { match: Match }) {
-  const teams = useTeams();
-  const team = getTeamById(teams, match.opponentTeamId);
-  return match.opponentLogo ? (
-    <img
-      className="crest crest-small"
-      src={match.opponentLogo}
-      alt={team?.name || match.opponent}
-    />
+function AwayCrest({ match, team }: { match: Match; team?: ReturnType<typeof useTeams>[number] }) {
+  const logo = team?.logo || match.opponentLogo;
+  return logo ? (
+    <img className="crest crest-small" src={logo} alt={team?.name || match.opponent} />
   ) : (
     <div
       className="away-crest"
@@ -63,7 +62,7 @@ function MatchRow({ match, liveState }: { match: Match; liveState: LiveState }) 
         </span>
       </div>
       <div className="fixture-opp">
-        {match.home ? <UskCrest /> : <AwayCrest match={match} />}
+        {match.home ? <UskCrest team={homeTeam} /> : <AwayCrest match={match} team={awayTeam} />}
         <div className="fixture-opp-copy">
           <strong>
             {match.home
@@ -158,13 +157,13 @@ function MatchsPage() {
           <div className="next-match-comp">{next.competition}</div>
           <div className="next-match-teams">
             <div className="next-match-team">
-              <UskCrest />
+              <UskCrest team={nextHomeTeam} />
               <strong>{nextHomeTeam?.abbreviation || "USK"}</strong>
               <span>{nextHomeTeam?.city || "Kelibia"}</span>
             </div>
             <div className="next-match-vs">{next.status === "live" ? `${next.scoreFor ?? 0} - ${next.scoreAgainst ?? 0}` : next.status === "live" ? "LIVE" : "VS"}</div>
             <div className="next-match-team">
-              <AwayCrest match={next} />
+              <AwayCrest match={next} team={nextAwayTeam} />
               <strong>{nextAwayTeam?.abbreviation || next.opponentShort}</strong>
               <span>{nextAwayTeam?.city || next.opponent}</span>
             </div>
